@@ -1,59 +1,100 @@
-/* * This Source Code Form is subject to the terms of the Mozilla Public License,
- * v. 2.0. If a copy of the MPL was not distributed with this file, You can
- * obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
- * the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
- *
- * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
- * graphic logo is a trademark of OpenMRS Inc.
- */
-import React from 'react';
-import { observer } from 'mobx-react';
+const { Component } = React;
+const { Provider } = ReactRedux;
+const {
+  createStore,
+  applyMiddleware
+} = Redux;
+const {
+  Field,
+  Control,
+  Form,
+  combineForms
+} = ReactReduxForm;
+const thunk = ReduxThunk.default;
+const logger = reduxLogger();
 
-export default observer(({ form }) => (
-  <form>
-    <label htmlFor={form.$('nombreMed').id}>
-      {form.$('nombreMed').label}
-    </label>
-    <input {...form.$('nombreMed').bind()} />
-    <p>{form.$('nombreMed').error}</p>
+const initialUserState = {
+  nombreMed: '',
+  canti: '',
+};
 
-     <label htmlFor={form.$('cantidad').id}>
-      {form.$('nombreMed').label}
-    </label>
-    <input {...form.$('cantidad').bind()} />
-    <p>{form.$('cantidad').error}</p>
+const store = createStore(combineForms({
+  user: initialUserState,
+}), applyMiddleware(thunk));
 
-     <label htmlFor={form.$('prov').id}>
-      {form.$('prov').label}
-    </label>
-    <input {...form.$('prov').bind()} />
-    <p>{form.$('prov').error}</p>
+class UserForm extends Component {
+  render() {
+    return (
+      <Form model="user" onSubmit={v => console.log(v)}>
+        <div className="field">
+          <label>Nombre de medicina:</label>
+          <Control.text model=".nombreMed" />
+        </div>
+
+        <div className="field">
+          <label>Cantidad:</label>
+          <Control.text model=".canti" />
+        </div>
+
+        <div className="field">
+          <label>Unidad de Medida:</label>
+          <Control.select model=".uniMed">
+            <option></option>
+            <option value="ff0000">ml</option>
+            <option value="00ff00">mg</option>
+            <option value="0000ff">cajas</option>
+          </Control.select>
+        </div>
+        
+        <div className="field">
+          <label>Proveedor:</label>
+          <Control.text model=".proveedor" />
+        </div>
+
+        <div className="field">
+          <label>Lote:</label>
+          <Control.text model=".lote" />
+        </div>
 
 
-     <label htmlFor={form.$('lote').id}>
-      {form.$('lote').label}
-    </label>
-    <input {...form.$('lote').bind()} />
-    <p>{form.$('lote').error}</p>
+        <div className="field">
+          <label>Fecha de Expiracion:</label>
+          <Control.text model=".fExp" />
+        </div>
 
+        <div className="field">
+          <label>Costo:</label>
+          <Control.text model=".costo" />
+        </div>
 
-     <label htmlFor={form.$('fechaExp').id}>
-      {form.$('fechaExp').label}
-    </label>
-    <input {...form.$('fechaExp').bind()} />
-    <p>{form.$('fechaExp').error}</p>
+                        
+        
+        
+        <div className="field">
+          <label>Observaciones:</label>
+          <Control.textarea model=".notes" />
+        </div>
+        
+        <button type="submit">
+          Ingresar
+        </button>
+        
+        <Control.reset model="user" type="reset">
+          Reset
+        </Control.reset>
+      </Form>
+    )
+  }
+}
 
-     <label htmlFor={form.$('costo').id}>
-      {form.$('costo').label}
-    </label>
-    <input {...form.$('costo').bind()} />
-    <p>{form.$('costo').error}</p>
+class App extends React.Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <UserForm />
+      </Provider>
+    );
+  }
+}
 
-
-    <button type="submit" onClick={form.onSubmit}>Submit</button>
-    <button type="button" onClick={form.onReset}>Reset</button>
-    <button type="button" onClick={form.onClear}>Clear</button>
-
-    <p>{form.error}</p>
-  </form>
-));
+ReactDOM.render(<App />, document.getElementById('app'));
