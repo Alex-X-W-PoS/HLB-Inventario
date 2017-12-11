@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'django-filters',
 ]
 
 MIDDLEWARE = [
@@ -79,8 +78,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME':'HLBINVENTARIO' ,
-        'USER':'ROOT',
-        'PASSWORD':'root123',
+        'USER':'root',
+        'PASSWORD':'1234',
         
     }
 }
