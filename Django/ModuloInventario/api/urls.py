@@ -16,7 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
+from api import views as api
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path(r'^api/', include('api.urls')),
+    path(r'^listaInv/', api.ListarInventario.as_view()),
+    path(r'^ingreso/', api.CrearMedicina.as_view()),
+    path(r'^modificar/', api.ModificarMedicina.as_view()),
+    path(r'^eliminar/', api.EliminarMedicina.as_view()),
+
 ]
