@@ -36,7 +36,7 @@ class CrearMedicina(APIView):
 
         except:
 
-            return Response({"Mensaje":"Se produjo un Error, no se ha podido almacenar la medicina"})
+            return Response({"Mensaje":"Se produjo un Error, no se ha podido almacenar la medicina"}, status=500)
 
 
 class EliminarMedicina(APIView):
@@ -50,7 +50,7 @@ class EliminarMedicina(APIView):
 
         except:
 
-            return Response({"Mensaje":"Se ha producido un error"})
+            return Response({"Mensaje":"Se ha producido un error"}, status=500)
 
 class ModificarMedicina(APIView):
     @transaction.atomic
@@ -70,6 +70,6 @@ class ModificarMedicina(APIView):
                 registro.save()
                 return Response({"Mensaje": "Medicina Modificada exitosamente"})
         except:
-            return Response({"Mensaje": "Se produjo un Error, no se ha podido modificar la medicina"})
+            return Response({"Mensaje": "Se produjo un Error, no se ha podido modificar la medicina"}, status=500)
 
 
