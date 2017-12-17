@@ -13,6 +13,7 @@ import Main from './components/pages/Main';
 import App from './components/App';
 import Proveeduria from './components/pages/Proveeduria';
 import AgregarInventario from './components/pages/AgregarInventario';
+import ListarMedicina from './components/pages/ListarMedicina';
 
 render((
          <Router history={hashHistory}>
@@ -20,5 +21,6 @@ render((
     		<Route path="/notimplementedyet" component={App}/>
     		<Route path="/proveeduria" component={Proveeduria}/>
     		<Route path="/proveeduria/agregarinventario" component={AgregarInventario}/>
+    		<Route path="/proveeduria/listarmedicina" component={ListarMedicina}/>
          </Router>
        ), document.getElementById('app'));

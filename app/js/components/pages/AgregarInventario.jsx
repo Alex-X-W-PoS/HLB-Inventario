@@ -2,9 +2,7 @@ import React from 'react';
 
 import { Link } from 'react-router';
 
-import axios from 'axios';
-
-axios.defaults.xsrfHeaderName = "X-CSRFToken";
+import request from 'superagent';
 
 export default class AgregarInventario extends React.Component {
 
@@ -19,21 +17,12 @@ export default class AgregarInventario extends React.Component {
 		const facturad = document.getElementById('factura').value;
 		const fecha_expd = document.getElementById('fecha_exp').value;
 		const costod = document.getElementById('costo').value;
-		var params = new URLSearchParams();
-		params.append('nombre',nombred);
-		params.append('cantidad',cantidadd);
-		params.append('unidad',unidadd);
-		params.append('proveedor',proveedord);
-		params.append('lote',loted);
-		params.append('factura',facturad);
-		params.append('fecha_exp',fecha_expd);
-		params.append('costo',costod);
-		axios.post('http://localhost:8000/api/inventario/',params)
+		//var params = new URLSearchParams();
+		request.post('http://localhost:8000/api/inventario/')
+		.set('Content-Type','application/json')
+		.send({nombre: nombred,cantidad: cantidadd,unidad: unidadd,proveedor: proveedord, lote: loted, factura: facturad, fecha_exp: fecha_expd, costo: costod})
 		.then(function(response){
-			alert("success");
-		})
-		.catch(function(error){
-			console.log(error.status);
+			alert("Exito al ingresar medicina.");
 		});
 
 		

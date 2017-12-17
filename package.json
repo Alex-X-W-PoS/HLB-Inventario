@@ -8,7 +8,6 @@
   },
   "dependencies": {
     "ajv": "^5.5.1",
-    "axios": "^0.17.1",
     "mobx": "^3.4.1",
     "mobx-react": "^4.3.5",
     "mobx-react-form": "^1.32.2",
@@ -19,6 +18,7 @@
     "react-redux-form": "^1.16.2",
     "react-router": "^3.0.0",
     "redux": "^3.7.2",
+    "superagent": "^3.8.2",
     "validatorjs": "^3.13.6"
   },
   "devDependencies": {
