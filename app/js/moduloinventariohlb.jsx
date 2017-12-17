@@ -8,12 +8,17 @@
  */
 import React from 'react';
 import {render} from 'react-dom';
-import {Router, Route, hashHistory} from 'react-router'
-
-import routes from './routes'
+import {Router, Route, hashHistory} from 'react-router';
+import Main from './components/pages/Main';
+import App from './components/App';
+import Proveeduria from './components/pages/Proveeduria';
+import AgregarInventario from './components/pages/AgregarInventario';
 
 render((
          <Router history={hashHistory}>
-           {routes()}
+         	<Route path="/" component={Main}/>
+    		<Route path="/notimplementedyet" component={App}/>
+    		<Route path="/proveeduria" component={Proveeduria}/>
+    		<Route path="/proveeduria/agregarinventario" component={AgregarInventario}/>
          </Router>
        ), document.getElementById('app'));

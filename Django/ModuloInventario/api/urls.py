@@ -15,12 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.conf.urls import include
+from django.conf.urls import url,include
 from api import views as api
+from rest_framework.routers import SimpleRouter
+
+router = SimpleRouter()
+router.register(r'inventario',api.InventarioView)
+
 urlpatterns = [
-    path('listaInv/', api.ListarInventario.as_view()),
-    path('ingreso/', api.CrearMedicina.as_view()),
-    path('modificar/', api.ModificarMedicina.as_view()),
-    path('eliminar/', api.EliminarMedicina.as_view()),
+    url(r'^',include(router.urls)),
+    #path('listaInv/', api.ListarInventario.as_view()),
+    #path('ingreso/', api.CrearMedicina.as_view()),
+   # path('modificar/', api.ModificarMedicina.as_view()),
+    #path('eliminar/', api.EliminarMedicina.as_view()),
 
 ]

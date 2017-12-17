@@ -5,6 +5,11 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from inventario.models import Inventario
 from .serializers import InventarioSerializer
+from rest_framework.viewsets import ModelViewSet
+
+class InventarioView(ModelViewSet):
+    queryset = Inventario.objects.all()
+    serializer_class = InventarioSerializer
 
 class ListarInventario(APIView):
     def get(self, request):
@@ -25,7 +30,7 @@ class CrearMedicina(APIView):
                 medicina.proveedor = request.data['proveedor']
                 medicina.lote = request.data['lote']
                 medicina.factura = request.data['factura']
-                medicina.fecha_exp = request.data['fecha']
+                medicina.fecha_exp = request.data['fecha_exp']
                 medicina.costo = request.data['costo']
                 medicina.save()
                 return Response({"Mensaje":"Medicina Agregada al inventario exitosamente"})
