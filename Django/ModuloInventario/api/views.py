@@ -1,10 +1,6 @@
 from django.shortcuts import render
-
-# Create your views here.
 from django.db import transaction
-from rest_framework.decorators import api_view
 from django.shortcuts import render, get_object_or_404
-from django.http import JsonResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from inventario.models import Inventario
@@ -77,4 +73,20 @@ class ModificarMedicina(APIView):
         except:
             return Response({"Mensaje": "Se produjo un Error, no se ha podido modificar la medicina"}, status=500)
 
+
+def guardarInventario(request):
+    try:
+        medicina = Inventario()
+        medicina.nombre = request.data['nombre']
+        medicina.cantidad = request.data['cantidad']
+        medicina.unidad = request.data['unidad']
+        medicina.proveedor = request.data['proveedor']
+        medicina.lote = request.data['lote']
+        medicina.factura = request.data['factura']
+        medicina.fecha_exp = request.data['fecha']
+        medicina.costo = request.data['costo']
+        medicina.save()
+        return True
+    except:
+        return False
 
