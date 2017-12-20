@@ -3,13 +3,23 @@ from django.db import transaction
 from django.shortcuts import render, get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from inventario.models import Inventario
-from .serializers import InventarioSerializer
+from inventario.models import Inventario, InventarioF
+from .serializers import InventarioSerializer, InventarioFSerializer
 from rest_framework.viewsets import ModelViewSet
 
 class InventarioView(ModelViewSet):
     queryset = Inventario.objects.all()
     serializer_class = InventarioSerializer
+
+class InventarioFView(ModelViewSet):
+    queryset = InventarioF.objects.all()
+    serializer_class = InventarioFSerializer
+
+class ListarInventarioFarmacia(APIView):
+    def get(self, request):
+        lista=InventarioF.objects.all()
+        response=InventarioFSerializer(lista, many=True)
+        return Response(response.data or None)
 
 class ListarInventario(APIView):
     def get(self, request):
