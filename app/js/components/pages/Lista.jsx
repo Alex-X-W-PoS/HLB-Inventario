@@ -8,11 +8,11 @@ export default class Lista extends React.Component {
 		this.state = {
 			medicinas: [],
 		};
-		this.consulta = this.consulta.bind(this);
+		//this.consulta = this.consulta.bind(this);
 
 	}
 
-	consulta(e){
+	componentWillMount(){
 		let medicinas;
 		request.get('http://localhost:8000/api/inventario/')
 		.then(function(response){
@@ -27,16 +27,16 @@ export default class Lista extends React.Component {
 	}
 
 	render(){
-		console.log(this.state.medicinas);
 		var listamedicinas = this.state.medicinas.map(function(object){
 			return <div><p className="cant">Nombre Medicina: {object.nombre}</p><p>Cantidad: {object.cantidad}</p></div>;
 		})
 		return(
 			<div>
-				<button className="block-element" onClick={this.consulta}>Consulta</button>
+				
 				<div>{listamedicinas}</div>
 			</div>
 			)
+		//<button className="block-element" onClick={this.consulta}>Consulta</button>
 	}
 
 }

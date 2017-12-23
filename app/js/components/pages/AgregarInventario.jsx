@@ -21,8 +21,13 @@ export default class AgregarInventario extends React.Component {
 		request.post('http://localhost:8000/api/inventario/')
 		.set('Content-Type','application/json')
 		.send({nombre: nombred,cantidad: cantidadd,unidad: unidadd,proveedor: proveedord, lote: loted, factura: facturad, fecha_exp: fecha_expd, costo: costod})
-		.then(function(response){
-			alert("Exito al ingresar medicina.");
+		.then(function(response, error){
+			if (error){
+				alert("Error al ingresar medicina.");
+			}
+			else{
+				alert("Exito al ingresar medicina.");
+			}
 		});
 
 		
